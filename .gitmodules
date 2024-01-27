@@ -1,0 +1,3 @@
+[submodule "external/BrogueCE"]
+	path = external/BrogueCE
+	url = https://github.com/tmewett/BrogueCE.git
