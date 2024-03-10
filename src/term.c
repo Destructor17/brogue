@@ -803,12 +803,21 @@ static int term_getkey() {
                 Term.mouse.justMoved = 1;
             }
             return TERM_MOUSE;
-        } else {
-            if (event.type == Char) {
-                if (event.data1 == KEY_ENTER)
-                    return 13;
-                return event.data1;
+        } else if (event.type == Arrow) {
+            switch (event.data1) {
+            case left:
+                return KEY_LEFT;
+            case right:
+                return KEY_RIGHT;
+            case up:
+                return KEY_UP;
+            case down:
+                return KEY_DOWN;
             }
+        } else if (event.type == Key) {
+            if (event.data1 == KEY_ENTER)
+                return 13;
+            return event.data1;
         }
     }
     return TERM_NONE;
