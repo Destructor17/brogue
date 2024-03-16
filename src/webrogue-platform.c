@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <sys/time.h>
+#include "Rogue.h"
 #include "platform.h"
 #include "term.h"
 
@@ -111,7 +112,7 @@ static uint64_t getTime() {
     return (uint64_t)tv.tv_sec * 1000 + tv.tv_usec / 1000;
 }
 
-static boolean curses_pauseForMilliseconds(short milliseconds) {
+static boolean curses_pauseForMilliseconds(short milliseconds, PauseBehavior behavior) {
     Term.refresh();
     Term.wait(milliseconds);
 
@@ -190,7 +191,7 @@ static void curses_nextKeyOrMouseEvent(rogueEvent *returnEvent, boolean textInpu
         waitTime = PAUSE_BETWEEN_EVENT_POLLING + theTime - getTime();
 
         if (waitTime > 0 && waitTime <= PAUSE_BETWEEN_EVENT_POLLING) {
-            curses_pauseForMilliseconds(waitTime);
+            curses_pauseForMilliseconds(waitTime, PAUSE_BEHAVIOR_DEFAULT);
         }
     }
 }
