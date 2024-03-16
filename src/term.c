@@ -818,6 +818,8 @@ static int term_getkey() {
             if (event.data1 == KEY_ENTER)
                 return 13;
             return event.data1;
+        } else if (event.type == Char) {
+            return event.data1;
         }
     }
     return TERM_NONE;
